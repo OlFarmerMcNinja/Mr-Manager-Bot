@@ -10,7 +10,7 @@ DISCORD_TOKEN = os.getenv('Discord_Token')
 
 #starts the discord client
 intents = discord.Intents.default()
-bot = commands.Bot(command_prefix=commands.when_mentioned)
+bot = commands.Bot(command_prefix=commands.when_mentioned, case_insensitive=True)
 
 
 #event handler on start
