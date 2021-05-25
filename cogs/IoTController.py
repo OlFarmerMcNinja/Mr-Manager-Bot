@@ -24,8 +24,11 @@ class IoTController(commands.Cog):
         elif arg.lower() == "off":
             redLED.off()
             await ctx.channel.send("The LED has been turned off")
+        #if the command has anything past <bot name> LED <on/off> it gives feedback that
+        #the command is invalid.
         else:
             await ctx.channel.send("Please only tell me to turn the LED on or off.")
 
+#runs the cog
 def setup(bot):
     bot.add_cog(IoTController(bot))
