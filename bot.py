@@ -1,17 +1,35 @@
 import os
-import sys
 import platform
 import discord
 import yaml
 from discord.ext import commands, tasks
+
+#default YAML Document
+def CreateNewConfig():
+    InstalledCogs = []
+    try:
+        for file in os.listdir('./cogs'):
+            if file.endswith(".py"):
+                InstalledCogs.append(file[:-3])
+    except Exception as e:
+        exception = f"{type(e).__name__}: {e}"
+        print(f"Could not get list of cogs \n{exception}")
+        os.mkdir("cogs")
+
+    YAMLDefault={'DiscordToken': input("What is your Discord Bot Token?"),
+                'Cogs': InstalledCogs}
+    with open('config.yaml','w') as file:
+        yaml.dump(YAMLDefault, file, default_flow_style=False)
 
 #loading tokens from config file
 try:
     with open('config.yaml', 'r') as file:
         config = yaml.load(file, Loader=yaml.FullLoader)
 except IOError:
-    print("No config file exists.")
-    sys.exit(1)
+    print("generating config.yaml")
+    CreateNewConfig()
+    with open('config.yaml','r') as file:
+        config = yaml.load(file, Loader=yaml.FullLoader)
 
 
 #starts the discord client
