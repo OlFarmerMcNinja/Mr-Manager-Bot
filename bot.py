@@ -1,12 +1,18 @@
 import os
+import sys
 import platform
 import discord
+import yaml
 from discord.ext import commands, tasks
-from dotenv import load_dotenv
 
-#loading variables from .env which contains auth tokens
-load_dotenv()
-DISCORD_TOKEN = os.getenv('Discord_Token')
+#loading tokens from config file
+try:
+    with open('config.yaml', 'r') as file:
+        config = yaml.load(file, Loader=yaml.FullLoader)
+except IOError:
+    print("No config file exists.")
+    sys.exit(1)
+
 
 #starts the discord client
 intents = discord.Intents.default()
@@ -27,15 +33,13 @@ async def on_ready():
 
 #loads all cogs from the cogs folder
 if __name__ == "__main__":
-    for file in os.listdir('./cogs'):
-        if file.endswith('.py'):
-            extension = file[:-3]
-            try:
-                bot.load_extension(f'cogs.{extension}')
-                print(f'Loaded extension \'{extension}\'')
-            except Exception as e:
-                exception = f'{type(e).__name__}: {e}'
-                print(f'Failed to load extension {extension}\n{exception}')
+    for cogName in config['Cogs']:
+        try:
+            bot.load_extension(f'cogs.{cogName}')
+            print(f'Loaded extension \'{cogName}\'')
+        except Exception as e:
+            exception = f'{type(e).__name__}: {e}'
+            print(f'Failed to load extension {cogName}\n{exception}')
 
 #event handler that executes when a message is sent
 @bot.event
@@ -63,4 +67,4 @@ async def on_command_error(context, error):
     raise error
 
 #starts the client and runs the script with the provided token in .env file
-bot.run(DISCORD_TOKEN)
+bot.run(config['DiscordToken'])
