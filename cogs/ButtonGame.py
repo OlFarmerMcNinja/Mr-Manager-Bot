@@ -1,6 +1,6 @@
 import datetime
 import discord
-from discord importing commands
+from discord.ext import commands
 
 class ButtonGame(commands.Cog):
     """
@@ -15,22 +15,34 @@ class ButtonGame(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.last_timestamp = None
+        self.PlayerData = None
+
+    #creates a file with the serverID as a name to store player data into
+    #if <serverID from message>.dat doesn't exist:
+        #create <serverID from message>.dat
+    #else:
+        #open .dat file and save to PlayerData variable
+        #last_timestamp = last timestamp from .dat file
 
     @commands.group(case_insensitive=True)
-    async def Button(self, ctx):
+    async def button(self, ctx):
+        if ctx.invoked_subcommand is None:
+            await ctx.send('Invalid button command passed...')
         pass
 
-    @Button.command()
-    async def Press(ctx):
-        pass
+    @button.command()
+    async def Press(self, ctx):
+        #CurrentTimestamp = timestamp
+        await ctx.send("Button Press")
 
-    @Button.command()
-    async def Rank(ctx):
-        pass
+    @button.command()
+    async def Rank(self, ctx):
+        await ctx.send("Rank")
 
-    @Button.command()
-    async def List(ctx):
-        pass
+    @button.command()
+    async def List(self, ctx):
+        await ctx.send("Leaderboard")
 
 def setup(bot):
     bot.add_cog(ButtonGame(bot))
