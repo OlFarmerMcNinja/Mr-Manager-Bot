@@ -2,4 +2,11 @@ DiscordToken: Put Discord Token Here
 Cogs:
   #Comment out modules you don't want to load with "#" in front of each line
   - GPIO
+  - MrMarquee
 #  - ButtonGame
+LEDMatrix:
+  Rows: 16
+  Columns: 32
+  Chain: 3
+  Parallel: 1
+  Hardware: 'adafruit-hat'
