@@ -1,0 +1,6 @@
+# Ignore Venv
+.MrManagerVENV/
+cogs/__pycache__
+
+# Ignore Environment Variables
+Configuration.yaml
