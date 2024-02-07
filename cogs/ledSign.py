@@ -5,7 +5,7 @@ import discord
 from rgbmatrix import RGBMatrix, RGBMatrixOptions, graphics
 import time
 
-class ScrollingTextCog(commands.Cog, name='scroll'):
+class ScrollingTextCog(commands.Cog, name='sign'):
     def __init__(self, client: commands.Bot):
         super().__init__()
         self.client = client
@@ -31,8 +31,8 @@ class ScrollingTextCog(commands.Cog, name='scroll'):
         while pos + len(text) * 7 > 0:
             canvas.Clear()
             length = graphics.DrawText(canvas, font, pos, 10, textColor, text)
-            pos -= 1.25
-            time.sleep(0.05)
+            pos -= 1 # Move left change for speed
+            time.sleep(0.05) # scroll smoothness
             canvas = self.matrix.SwapOnVSync(canvas)
         
     @app_commands.command(name='text', description='Scrolls the given text across the LED matrix.')
