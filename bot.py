@@ -39,14 +39,14 @@ class client(commands.Bot):
     # Method called when the bot is ready
     async def on_ready(self):
         # Prints information about the bot
-        print(getTime + " " + "Logged in as " + self.user.name)
-        print(getTime + " " + "ID: " + str(self.user.id))
-        print(getTime + " " + "Discord.py Version: " + discord.__version__)
-        print(getTime + " " + "Python Version: " + platform.python_version())
+        print(str(getTime()) + " " + "Logged in as " + self.user.name)
+        print(str(getTime()) + " " + "ID: " + str(self.user.id))
+        print(str(getTime()) + " " + "Discord.py Version: " + discord.__version__)
+        print(str(getTime()) + " " + "Python Version: " + platform.python_version())
         
         # Syncs the slash commands and then prints the number of commands synced
         synced = await self.tree.sync()
-        print(getTime + " " + "Tree synced: " + str(len(synced)) + " commands")
+        print(str(getTime()) + " " + "Tree synced: " + str(len(synced)) + " commands")
     
 # creates the bot
 bot = client()

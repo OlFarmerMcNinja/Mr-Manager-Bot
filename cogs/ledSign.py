@@ -10,7 +10,7 @@ class ScrollingTextCog(commands.Cog, name='sign'):
         super().__init__()
         self.client = client
         
-        
+        # Set up the LED matrix properties
         options = RGBMatrixOptions()
         options.rows = 16
         options.cols = 32
@@ -22,26 +22,40 @@ class ScrollingTextCog(commands.Cog, name='sign'):
     async def scrolling_text(self, text: str):
         self.matrix.Clear()
         
+        #creates the canvas and loads the text properties
         canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
         font.LoadFont("rpi-rgb-led-matrix/fonts/7x13.bdf")
         textColor = graphics.Color(255, 255, 0)
         pos = canvas.width
         
+        # Loop through rendering the text
         while pos + len(text) * 7 > 0:
             canvas.Clear()
             length = graphics.DrawText(canvas, font, pos, 10, textColor, text)
             pos -= 1 # Move left change for speed
             time.sleep(0.05) # scroll smoothness
             canvas = self.matrix.SwapOnVSync(canvas)
-        
-    @app_commands.command(name='text', description='Scrolls the given text across the LED matrix.')
+    
+    # Command to scroll text
+    @app_commands.command(name='sign', description='Scrolls the given text across the LED matrix.')
     async def scroll_text(self, interaction: discord.Interaction, text: str):
-        await interaction.response.defer(ephemeral=True)
+        await interaction.response.defer()
         
         await self.scrolling_text(text)
         
-        await interaction.followup.send("Done scrolling text!", ephemeral=True)
+        #creates the embed
+        embed = discord.Embed(title="Done Scrolling Text!",
+                      colour=0x00f51d)
+        
+        embed.set_author(name=interaction.user.name, icon_url=interaction.user.avatar)
+
+        embed.add_field(name="Your Text:",
+                        value=text,
+                        inline=False)
+        
+        #sends the embed
+        await interaction.followup.send(embed=embed)
         
 async def setup(client:commands.Bot) -> None:
     await client.add_cog(ScrollingTextCog(client))
