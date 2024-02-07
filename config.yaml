@@ -1,5 +1,0 @@
-DiscordToken: Put Discord Token Here
-Cogs:
-  #Comment out modules you don't want to load with "#" in front of each line
-  - GPIO
-#  - ButtonGame
