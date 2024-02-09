@@ -6,7 +6,7 @@ import platform
 
 # Attempt to open and load the configuration file
 try:
-    with open('Configuration.yaml', 'r') as file:
+    with open('Config.yaml', 'r') as file:
         config = yaml.load(file, Loader=yaml.FullLoader)
 except IOError:
     print("missing config.yaml file, please create one with your bot token in it.")
@@ -52,4 +52,4 @@ class client(commands.Bot):
 bot = client()
 
 # runs the bot
-bot.run(config['TOKEN'])
+bot.run(config['DISCORD_TOKEN'])
