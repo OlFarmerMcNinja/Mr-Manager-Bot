@@ -1,0 +1,38 @@
+# MQTT Config
+CLIENT_NAME: 'signSubscriber'
+BROKER_IP: 'YOUR_BROKER_IP'
+BROKER_PORT: 1883
+TOPIC: 'LEDSign/#'
+QOS: 1
+
+# Sign Hardware Config
+
+# Number of pixels high and wide
+ROWS: 16
+COLUMNS: 32
+
+# Number of panels connected in series(chain) and parallel
+CHAIN_LENGTH: 3
+PARALLEL_CHAINS: 1
+
+# Type of GPIO connection used - how the wires are mapped. Valid options are:
+# 'regular' - regular wiring
+# 'adafruit-hat' - Adafruit HAT/Bonnet
+# 'adafruit-hat-pwm' - Adafruit HAT/Bonnet with PWM hardware mod described in HZELLER/rpi-rgb-led-matrix
+# 'compute-module' - Compute Module IO board where 3 parrallel chains can be used
+HARDWARE_MAPPING: 'regular'
+SLOWDOWN_GPIO: 1
+
+# Hardware Properties
+BRIGHTNESS: 100 # 0-100
+PWM_BITS: 11 # Bits used for PWM
+PWM_LSB_NANOSECONDS: 130 # changes the base time-unit for the on-time in the lowest significant bit in nanoseconds
+SCAN_MODE: 0 # 0 = progressive, 1 = interlaced
+MULTIPLEXING: 0 # 0 = direct, 1 = stripe, 2 = checker, 3 = spiral
+ROW_ADDRESS_TYPE: 0 # 0 = default, 1 = AB-addressing, 2 = direct row select, 3 = ABC-addressed panels, 4 = ABC Shift + DE direct
+DISABLE_HARDWARE_PULSING: False # Don't use hardware pin-pulse generation (enable if not using Adafruit-hat-pwm)
+LIMIT_REFRESH_RATE_HZ: 0 # sets refresh rate limit in Hz, 0 disables limit
+
+#Display Properties
+FONT: '7x13.bdf'
+FONT_COLOR: [255, 255, 255]

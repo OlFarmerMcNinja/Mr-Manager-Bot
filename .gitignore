@@ -3,4 +3,5 @@
 cogs/__pycache__
 
 # Ignore Environment Variables
-Configuration.yaml
+Config.yaml
+mqtt_config.yaml
