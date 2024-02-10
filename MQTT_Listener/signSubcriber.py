@@ -14,20 +14,20 @@ except IOError:
 
 class MQTTListener():
     def __init__(self):
-        self.client = paho.Client("s1")
+        self.client = paho.Client(config['CLIENT_NAME'], clean_session=True, reconnect_on_failure=True)
         self.client.on_subscribe = self.on_subscribe
         self.client.on_message = self.on_message
-        self.something = ScrollingText()
+        self.scroller = ScrollingText()
         self.config = config
 
     def on_subscribe(self, client, userdata, mid, granted_qos):
         print(f'Subscribed: {str(mid)} {str(granted_qos)}')
 
     def on_message(self, client, userdata, msg):
-        text = str(msg.payload.decode("utf-8"))
-        print(msg.topic + " " + str(msg.qos) + " " + text)
-        self.something.scroll_text(text)
-
+        payload = yaml.load(msg.payload.decode("utf-8"), Loader=yaml.FullLoader)
+        print("msg.topic "+ str(msg.qos)+ " " +payload["text"])
+        self.scroller.scroll_text(payload['text'], payload['color'])
+    
     def start(self):
         self.client.connect(config['BROKER_IP'], config['BROKER_PORT'])
         self.client.subscribe(config['TOPIC'], qos=config['QOS'])
@@ -53,14 +53,14 @@ class ScrollingText():
         options.limit_refresh_rate_hz = config['LIMIT_REFRESH_RATE_HZ']
         self.matrix = RGBMatrix(options = options)
     
-    def scroll_text(self, text: None):
+    def scroll_text(self, text: None, color: tuple):
         self.matrix.Clear()
         
         #creates the canvas and loads the text properties
         canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
         font.LoadFont(config['FONT'])
-        textColor = graphics.Color(config['FONT_COLOR'][0], config['FONT_COLOR'][2], config['FONT_COLOR'][2])
+        textColor = graphics.Color(color[0], color[1], color[2])
         pos = canvas.width
         
         # Loop through rendering the text

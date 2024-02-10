@@ -1,4 +1,12 @@
-TOKEN: YOUR_BOT_TOKEN
-COGS:
-  - cogs.ping
-  - cogs.ledSign
+#Discord
+DISCORD_TOKEN: 'YOUR_BOT_TOKEN'
+DISCORD_COGS:
+  - 'cogs.ping'
+  - 'cogs.signPublisher'
+
+#MQTT
+MQTT_CLIENT_NAME: 'signPublisher'
+MQTT_BROKER_IP: 'YOUR_BROKER_IP/FQDN'
+MQTT_BROKER_PORT: 1883
+MQTT_TOPIC: 'LEDSign/discord'
+MQTT_QOS: 1

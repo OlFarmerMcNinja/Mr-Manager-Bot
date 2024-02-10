@@ -1,6 +1,6 @@
 # MQTT Config
 CLIENT_NAME: 'signSubscriber'
-BROKER_IP: 'YourBrokerIPHere'
+BROKER_IP: 'YOUR_BROKER_IP'
 BROKER_PORT: 1883
 TOPIC: 'LEDSign/#'
 QOS: 1
@@ -20,7 +20,7 @@ PARALLEL_CHAINS: 1
 # 'adafruit-hat' - Adafruit HAT/Bonnet
 # 'adafruit-hat-pwm' - Adafruit HAT/Bonnet with PWM hardware mod described in HZELLER/rpi-rgb-led-matrix
 # 'compute-module' - Compute Module IO board where 3 parrallel chains can be used
-HARDWARE_MAPPING: 'adafruit-hat-pwm'
+HARDWARE_MAPPING: 'regular'
 SLOWDOWN_GPIO: 1
 
 # Hardware Properties

@@ -17,12 +17,10 @@ def getTime():
     return time.strftime("%H:%M:%S", time.localtime())
 
 # Define a new bot class
-class client(commands.Bot):
+class DiscordClient(commands.Bot):
     def __init__(self):
-        # Initialize the parent class with a mention trigger and command prefix as a fallback then define the intents
-        super().__init__(command_prefix=commands.when_mentioned_or('.'), intents=discord.Intents.all())
-        
-        self.cogslist = config['COGS']
+        super().__init__(command_prefix=commands.when_mentioned, intents=discord.Intents.all())
+        self.cogslist = config['DISCORD_COGS']
     
     # Loads the cog files
     async def setup_hook(self):
@@ -49,7 +47,7 @@ class client(commands.Bot):
         print(str(getTime()) + " " + "Tree synced: " + str(len(synced)) + " commands")
     
 # creates the bot
-bot = client()
+discordBot = DiscordClient()
 
 # runs the bot
-bot.run(config['DISCORD_TOKEN'])
+discordBot.run(config['DISCORD_TOKEN'])
