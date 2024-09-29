@@ -3,6 +3,7 @@ DISCORD_TOKEN: 'YOUR_BOT_TOKEN'
 DISCORD_COGS:
   - 'cogs.ping'
   - 'cogs.signPublisher'
+  - 'cogs.pressTheButton'
 
 #MQTT
 MQTT_CLIENT_NAME: 'signPublisher'
